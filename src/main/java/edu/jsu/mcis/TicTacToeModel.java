@@ -77,7 +77,13 @@ public class TicTacToeModel {
 
         /* Initialize grid by filling every square with empty marks */
 
-        /* INSERT YOUR CODE HERE */
+        for(int x = 0; x < (width); ++x)
+        {
+            for(int i = 0; i < (width); ++i)
+            {
+                grid[i][x] = "-";
+            }
+        }
         
     }
 	
