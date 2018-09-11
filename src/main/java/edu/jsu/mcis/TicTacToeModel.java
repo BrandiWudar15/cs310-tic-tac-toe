@@ -73,7 +73,7 @@ public class TicTacToeModel {
         
         /* Create grid (width x width) as a 2D Mark array */
 
-        /* INSERT YOUR CODE HERE */
+        grid = new Mark[width-1][width-1];
 
         /* Initialize grid by filling every square with empty marks */
 
