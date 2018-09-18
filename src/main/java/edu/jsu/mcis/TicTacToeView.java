@@ -15,8 +15,8 @@ public class TicTacToeView {
     public void viewModel() {
         
         /* Print the board to the console (see examples) */
-        
-        /* INSERT YOUR CODE HERE */
+       
+       System.out.println(model);
 
     }
 
@@ -24,8 +24,12 @@ public class TicTacToeView {
 
         /* Display a prompt for the player's next move (see examples) */
 
-        /* INSERT YOUR CODE HERE */
-
+         if (xTurn){
+             System.out.println("Player 1 (X) Move: Enter the row and column numbers, separated by a space:");
+         }
+         else{
+             System.out.println("Player 2 (O) Move: Enter the row and column numbers, separated by a space:");
+         }
     }
 
     public void showInputError() {
