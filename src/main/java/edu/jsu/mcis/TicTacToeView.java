@@ -60,6 +60,8 @@ public class TicTacToeView {
 
         /* Display an error if input is invalid (see examples) */
 
+        if(model.isValidSquare)
+
     }
 
     public void showResult(String r) {
