@@ -75,12 +75,10 @@ public class TicTacToeModel {
         
         /* Create grid (width x width) as a 2D Mark array */
 
-        //okay
+        
         grid = new Mark[width][width];
 
         /* Initialize grid by filling every square with empty marks */
-
-        //okay
         for(int x = 0; x < (width); ++x)
         {
             for(int i = 0; i < (width); ++i)
@@ -137,17 +135,16 @@ public class TicTacToeModel {
         
         /* Return true if square at specified location is marked */
         
-     if(isValidSquare(row, col))
-     {
-        if(grid[row][col] == Mark.EMPTY)
+        if((isValidSquare(row, col)) && (grid[row][col] == Mark.EMPTY))
         {
             return false;
         }
         else
         {
             return true; 
-        }
-     }
+        }   
+    
+    }
 	
     public Mark getMark(int row, int col) {
         
@@ -178,7 +175,7 @@ public class TicTacToeModel {
         {
             return Result.O;
         }
-        else if(isTie())
+        else if(isTie() == true)
         {
             return Result.TIE;
         }
@@ -207,7 +204,7 @@ public class TicTacToeModel {
                     }
                 }
 
-                if(counter == width)
+                if(c == width)
                 {
                    winner = true;
                 }
@@ -228,7 +225,7 @@ public class TicTacToeModel {
                 }
            }
            
-            //check diagonally
+            //check left diagonal
           for(int d = 0; d < width; ++d){
               c = 0;
               if(grid[d][d] == mark){
@@ -241,7 +238,8 @@ public class TicTacToeModel {
               }
           }
     
-         for(int d = 0 d < width; ++d){
+            //Check right diagonal
+         for(int d = 0; d < width; ++d){
              c = 0;
               if(grid[d][width-d-1] == mark){
                   c++;
@@ -258,19 +256,26 @@ public class TicTacToeModel {
     }
 	
     private boolean isTie() {
+
+        boolean tie = false;
         
         /* Check the squares of the board to see if the game is a tie.  */
+        int counter = 0;
 
-             for(int i = 0; i < width; i++){
-                for(int j = 0; j < width; j++){
-                    if(!grid[i][j].equals(Mark.EMPTY)){
-                        return false;
-                    }
-                }
+        for(int i = 0; i < width; i++){
+        for(int j = 0; j < width; j++){
+            if(grid[i][j] != Mark.EMPTY){
+                counter++;
+            }
+        }
+        }
 
-           }
+        if(counter == (width * width))
+        {
+            tie = true;
+        }
   
-      return true;
+      return tie;
         
     }
 
@@ -297,5 +302,7 @@ public class TicTacToeModel {
         return width;
         
     }
+
+
     
 }

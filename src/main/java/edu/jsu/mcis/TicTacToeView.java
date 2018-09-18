@@ -15,8 +15,38 @@ public class TicTacToeView {
     public void viewModel() {
         
         /* Print the board to the console (see examples) */
+
+        int width = model.getWidth();
+        Enum[][] grid = new Enum[width][width];
+
+        for(int j = 0; j < width ; ++j)
+        {
+            for(int k = 0; k < width ; ++k)
+            {
+                grid[j][k] = model.getMark(j,k);
+            }
+        }
+        
+        System.out.print("  ");
+        for(int g = 0; g < width; ++g)
+        {
+            System.out.print(g);
+        }
+            System.out.println();
        
-       System.out.println(model);
+       for(int x = 0; x < width; ++x )
+       {
+           System.out.print(x + " ");
+ 
+
+           for(int y = 0; y < width; ++y)
+           {
+               System.out.print(grid[x][y]);
+           }
+
+           System.out.println();
+       }
+       
 
     }
 
@@ -24,13 +54,11 @@ public class TicTacToeView {
 
         /* Display a prompt for the player's next move (see examples) */
 
-
+    }
 
     public void showInputError() {
 
         /* Display an error if input is invalid (see examples) */
-
-        System.out.println("Input is invalid");
 
     }
 
