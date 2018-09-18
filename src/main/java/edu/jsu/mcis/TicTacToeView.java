@@ -24,19 +24,13 @@ public class TicTacToeView {
 
         /* Display a prompt for the player's next move (see examples) */
 
-         if (xTurn){
-             System.out.println("Player 1 (X) Move: Enter the row and column numbers, separated by a space:");
-         }
-         else{
-             System.out.println("Player 2 (O) Move: Enter the row and column numbers, separated by a space:");
-         }
-    }
+
 
     public void showInputError() {
 
         /* Display an error if input is invalid (see examples) */
 
-        /* INSERT YOUR CODE HERE */
+        System.out.println("Input is invalid");
 
     }
 
