@@ -29,6 +29,7 @@ public class TicTacToeController {
         
         view.showNextMovePrompt();
         
+        
         /* Receive and validate input, which should be read at the keyboard as
            two integers, the row and the column (for example, "1 1" for the
            center square of a 3 x 3 grid).  Make mark if input is valid, or show

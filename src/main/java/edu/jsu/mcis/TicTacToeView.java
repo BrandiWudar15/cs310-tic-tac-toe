@@ -15,38 +15,31 @@ public class TicTacToeView {
     public void viewModel() {
         
         /* Print the board to the console (see examples) */
+        StringBuilder output = new StringBuilder();
 
         int width = model.getWidth();
-        Enum[][] grid = new Enum[width][width];
 
-        for(int j = 0; j < width ; ++j)
-        {
-            for(int k = 0; k < width ; ++k)
-            {
-                grid[j][k] = model.getMark(j,k);
+        output.append("\n\n  ");
+
+        for (int row = 0; row < width; row++) {
+            output.append(row);
+        }
+
+        output.append("\n\n");
+
+        for (int row = 0; row < width; row++) {
+
+            output.append(row).append(" ");
+
+            for (int col = 0; col < width; col++) {
+                output.append(model.getMark(row,col));
             }
-        }
-        
-        System.out.print("  ");
-        for(int g = 0; g < width; ++g)
-        {
-            System.out.print(g);
-        }
-            System.out.println();
-       
-       for(int x = 0; x < width; ++x )
-       {
-           System.out.println(x + " ");
- 
 
-           for(int y = 0; y < width; ++y)
-           {
-               System.out.print(grid[x][y]);
-           }
+            output.append("\n");
 
-           
-       }
-       
+        }
+
+        System.out.println(output.toString());
 
     }
 
@@ -56,11 +49,17 @@ public class TicTacToeView {
 
         if(model.isXTurn() == true)
         {
-            System.out.println("Player 1 (X) Move");
-            System.out.println("Enter the row and column numbers, separated by a space: ");
+                   
+           System.out.println();
+           System.out.println();
+           System.out.println("Player 1 (X) Move");
+           System.out.println("Enter the row and column numbers, separated by a space: ");
         }
         else
         {
+                   
+            System.out.println();
+            System.out.println();
             System.out.println("Player 2 (O) Move");
             System.out.println("Enter the row and column numbers, separated by a space: ");
         }
