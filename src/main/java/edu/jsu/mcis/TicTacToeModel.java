@@ -53,7 +53,7 @@ public class TicTacToeModel {
     private Mark[][] grid; /* Game grid */
     private boolean xTurn; /* True if X is current player */
     private int width;     /* Size of game grid */
-    private int turnCount = 1;
+    
     
     /* DEFAULT CONSTRUCTOR */
     
@@ -98,16 +98,18 @@ public class TicTacToeModel {
 
            boolean boolMark = false;
         
-            if((isValidSquare(row, col) == true) && (isSquareMarked(row, col) == false) && (turnCount % 2 == 0 ))
+            if((isValidSquare(row, col) == true) && (isSquareMarked(row, col) == false) && (xTurn == true))
             {
-                xTurn = false;
-                grid[row][col] = Mark.O;
-                boolMark = true;
-            }
-            else if((isValidSquare(row, col) == true) && (isSquareMarked(row, col) == false) && (turnCount % 2 != 0 ))
-            {
-                xTurn = true;
+                
                 grid[row][col] = Mark.X;
+                xTurn = false;
+                boolMark = true;    
+            }
+            else if((isValidSquare(row, col) == true) && (isSquareMarked(row, col) == false) && (xTurn == false))
+            {
+                
+                grid[row][col] = Mark.O;
+                xTurn = true;
                 boolMark = true;
             } 
             else
@@ -115,11 +117,11 @@ public class TicTacToeModel {
                 boolMark = false;
             }
 
-        turnCount++;
+        
         return boolMark;
     }
 	
-    private boolean isValidSquare(int row, int col) {
+    public boolean isValidSquare(int row, int col) {
         
         /* Return true if specified location is within grid bounds */
         
@@ -135,7 +137,7 @@ public class TicTacToeModel {
         
     }
 	
-    private boolean isSquareMarked(int row, int col) {
+    public boolean isSquareMarked(int row, int col) {
         
         /* Return true if square at specified location is marked */
         

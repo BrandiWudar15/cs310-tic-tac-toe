@@ -70,7 +70,7 @@ public class TicTacToeView {
 
         /* Display an error if input is invalid (see examples) */
         
-        System.out.println("Invalid input");
+        System.out.println("Invalid input. Please enter the row and column numbers, seperated by a space: ");
 
    
 
@@ -80,7 +80,7 @@ public class TicTacToeView {
 
         /* Display final winner */
 
-        System.out.println(r + "!");
+        System.out.println(r + " is the winner!");
 
     }
 	
