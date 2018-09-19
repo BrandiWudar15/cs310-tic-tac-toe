@@ -53,6 +53,7 @@ public class TicTacToeModel {
     private Mark[][] grid; /* Game grid */
     private boolean xTurn; /* True if X is current player */
     private int width;     /* Size of game grid */
+    private int turnCount = 1;
     
     /* DEFAULT CONSTRUCTOR */
     
@@ -94,25 +95,28 @@ public class TicTacToeModel {
         /* Place the current player's mark in the square at the specified
            location, but only if the location is valid and if the square is
            empty! */
+
+           boolean boolMark = false;
         
-            if((isValidSquare(row, col)) && (isSquareMarked(row, col) == false))
+            if((isValidSquare(row, col) == true) && (isSquareMarked(row, col) == false) && (turnCount % 2 == 0 ))
             {
-                if(xTurn)
-                {
-                     grid[row][col] = Mark.X;
-                }
-                else
-                {
-                     grid[row][col] = Mark.O;
-                }
-                return true;
+                xTurn = false;
+                grid[row][col] = Mark.O;
+                boolMark = true;
             }
+            else if((isValidSquare(row, col) == true) && (isSquareMarked(row, col) == false) && (turnCount % 2 != 0 ))
+            {
+                xTurn = true;
+                grid[row][col] = Mark.X;
+                boolMark = true;
+            } 
             else
             {
-                return false;
+                boolMark = false;
             }
 
-        
+        turnCount++;
+        return boolMark;
     }
 	
     private boolean isValidSquare(int row, int col) {
@@ -135,7 +139,7 @@ public class TicTacToeModel {
         
         /* Return true if square at specified location is marked */
         
-        if((isValidSquare(row, col)) && (grid[row][col] == Mark.EMPTY))
+        if((isValidSquare(row, col) == true) && (grid[row][col] == Mark.EMPTY))
         {
             return false;
         }
@@ -149,7 +153,7 @@ public class TicTacToeModel {
     public Mark getMark(int row, int col) {
         
         /* Return mark from the square at the specified location */
-        if(isValidSquare(row, col))
+        if(isValidSquare(row, col) == true)
         {
             return grid[row][col];
         }
@@ -167,11 +171,11 @@ public class TicTacToeModel {
            tie, or if the game is not over, and return the corresponding Result
            value */
         
-        if(isMarkWin(Mark.X) == false)
+        if(isMarkWin(Mark.X) == true)
         {
             return Result.X;
         }
-        else if(isMarkWin(Mark.O) == false)
+        else if(isMarkWin(Mark.O) == true)
         {
             return Result.O;
         }
@@ -196,60 +200,75 @@ public class TicTacToeModel {
          boolean winner = false;
 
             //checks rows
-           for(int i = 0; i < width; i++){
+           for(int i = 0; i < width; ++i)
+           {
                c = 0;
-                for(int j = 0; j < width; j++){
-                    if(grid[i][j] == mark){  
-                       c++;
-                    }
-                }
-
-                if(c == width)
+                for(int j = 0; j < width; ++j)
                 {
-                   winner = true;
+                    if(grid[i][j] == mark){  
+                       c++;  
+                    }
+
+                    if(c == width)
+                    {
+                        winner = true;
+                    }
                 }
            }
 
             //check columns
-            for(int i = 0; i < width; i++){
-               c =0;
-                for(int j = 0; j < width; j++){
+            for(int i = 0; i < width; ++i)
+            {
+               c = 0;
+                for(int j = 0; j < width; ++j){
                     if(grid[j][i] == mark){  
                        c++;
                     }
-                }
-
-                if(c == width)
-                {
-                   winner = true;
-                }
+                    if(c == width)
+                    {
+                        winner = true;
+                    }
+                }               
            }
            
             //check left diagonal
-          for(int d = 0; d < width; ++d){
-              c = 0;
-              if(grid[d][d] == mark){
-                  c++; 
+          int count = 0;
+          for(int d = 0; d < width; ++d)
+          {
+              if(grid[d][d] == mark)
+              {
+                  count++; 
               }
+              else
+              {
+                  continue;
+              }
+          }
 
-              if(c == width)
+          if(count == width)
               {
                   winner = true;
               }
-          }
     
-            //Check right diagonal
-         for(int d = 0; d < width; ++d){
-             c = 0;
-              if(grid[d][width-d-1] == mark){
-                  c++;
-              }
 
-              if(c == width)
+            //Check right diagonal
+         int countAgain = 0;
+         for(int d = 0; d < width; ++d)
+         {
+              if(grid[d][width-d-1] == mark)
+              {
+                  countAgain++;
+              }
+              else
+              {
+                  continue;
+              }
+         }
+
+          if(countAgain == width)
               {
                   winner = true;
               }
-          }
           
       return winner;
 
@@ -262,18 +281,22 @@ public class TicTacToeModel {
         /* Check the squares of the board to see if the game is a tie.  */
         int counter = 0;
 
-        for(int i = 0; i < width; i++){
-        for(int j = 0; j < width; j++){
-            if(grid[i][j] != Mark.EMPTY){
-                counter++;
+        for(int i = 0; i < width; i++)
+        {
+            for(int j = 0; j < width; j++)
+            {
+                if(grid[i][j] != Mark.EMPTY)
+                {
+                    counter++;
+                }          
             }
-        }
         }
 
         if(counter == (width * width))
         {
             tie = true;
         }
+        
   
       return tie;
         

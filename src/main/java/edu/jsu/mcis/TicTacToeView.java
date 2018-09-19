@@ -36,7 +36,7 @@ public class TicTacToeView {
        
        for(int x = 0; x < width; ++x )
        {
-           System.out.print(x + " ");
+           System.out.println(x + " ");
  
 
            for(int y = 0; y < width; ++y)
@@ -44,7 +44,7 @@ public class TicTacToeView {
                System.out.print(grid[x][y]);
            }
 
-           System.out.println();
+           
        }
        
 
@@ -54,13 +54,26 @@ public class TicTacToeView {
 
         /* Display a prompt for the player's next move (see examples) */
 
+        if(model.isXTurn() == true)
+        {
+            System.out.println("Player 1 (X) Move");
+            System.out.println("Enter the row and column numbers, separated by a space: ");
+        }
+        else
+        {
+            System.out.println("Player 2 (O) Move");
+            System.out.println("Enter the row and column numbers, separated by a space: ");
+        }
+
     }
 
     public void showInputError() {
 
         /* Display an error if input is invalid (see examples) */
+        
+        System.out.println("Invalid input");
 
-        if(model.isValidSquare)
+   
 
     }
 
