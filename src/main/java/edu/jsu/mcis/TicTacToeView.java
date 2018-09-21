@@ -1,87 +1,98 @@
 package edu.jsu.mcis;
 
-public class TicTacToeView {
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
 
-    private TicTacToeModel model;
+public class TicTacToeView extends JPanel implements ActionListener {
     
-    /* CONSTRUCTOR */
-	
+    TicTacToeModel model;
+
+    private JButton[][] squares;
+    private JPanel squaresPanel;
+    private JLabel resultLabel;
+
     public TicTacToeView(TicTacToeModel model) {
-        
+
         this.model = model;
-        
-    }
-	
-    public void viewModel() {
-        
-        /* Print the board to the console (see examples) */
-        StringBuilder output = new StringBuilder();
 
         int width = model.getWidth();
 
-        output.append("\n\n  ");
-
-        for (int row = 0; row < width; row++) {
-            output.append(row);
+        this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+        squares = new JButton[width][width];
+        squaresPanel = new JPanel(new GridLayout(width,width));
+        resultLabel = new JLabel();
+        resultLabel.setName("ResultLabel");
+        
+        for (int row = 0; row < width; row++)
+        {
+            
+            for (int col = 0; col < width; col++)
+            {
+                
+                squares[row][col] = new JButton(); 
+                squares[row][col].addActionListener(this);
+                squares[row][col].setName("Square" + row + col);
+                squares[row][col].setPreferredSize(new Dimension(64,64));
+                squaresPanel.add(squares[row][col]);
+                
+            }
+            
         }
 
-        output.append("\n\n");
+        this.add(squaresPanel);
+        this.add(resultLabel);
+        
+        resultLabel.setText("Welcome to Tic-Tac-Toe!");
 
-        for (int row = 0; row < width; row++) {
+    }
 
-            output.append(row).append(" ");
+    @Override
+    public void actionPerformed(ActionEvent event) {
+        
+        /* Handle button clicks.  Extract the row and col values from the name
+           of the button that was clicked, then make the mark in the grid using
+           the Model's "makeMark()" method.  Finally, use the "updateSquares()"
+           method to refresh the View.  If the game is over, show the result
+           (from the Model's "getResult()" method) in the result label. */
+        
+        String name = ((JButton) event.getSource()).getName(); // Get button name
+        
+        String nameRowCol = name.substring(6);
+        int rowInt = Integer.parseInt(nameRowCol.substring(0,(nameRowCol.length() / 2)-1));
+        int colInt = Integer.parseInt(nameRowCol.substring((nameRowCol.length() / 2)));
 
-            for (int col = 0; col < width; col++) {
-                output.append(model.getMark(row,col));
+        model.makeMark(rowInt, colInt);
+        updateSquares();
+    }
+        
+    public void updateSquares() {
+
+        /* Loop through all View buttons and (re)set the text of each button
+           to reflect the grid contents (use the Model's "getMark()" method). */
+            for(int x = 0; x < model.getWidth(); x++)
+            {
+                for (int y = 0; y < model.getWidth(); y++)
+                {
+                    squares[x][y].setText((model.getMark(x,y)).toString());
+                }
             }
 
-            output.append("\n");
-
-        }
-
-        System.out.println(output.toString());
-
-    }
-
-    public void showNextMovePrompt() {
-
-        /* Display a prompt for the player's next move (see examples) */
-
-        if(model.isXTurn() == true)
+        if(model.isGameover())
         {
-                   
-           System.out.println();
-           System.out.println();
-           System.out.println("Player 1 (X) Move");
-           System.out.println("Enter the row and column numbers, separated by a space: ");
-        }
-        else
-        {
-                   
-            System.out.println();
-            System.out.println();
-            System.out.println("Player 2 (O) Move");
-            System.out.println("Enter the row and column numbers, separated by a space: ");
+            showResult(model.getResult().toString());
         }
 
     }
 
-    public void showInputError() {
-
-        /* Display an error if input is invalid (see examples) */
+    public void viewModel()
+    {
+       squaresPanel.setVisible(true);
+    }
         
-        System.out.println("Invalid input. Please enter the row and column numbers, seperated by a space: ");
-
-   
-
+    public void showResult(String message) 
+    {
+        resultLabel.setText(message);
     }
 
-    public void showResult(String r) {
-
-        /* Display final winner */
-
-        System.out.println(r + " is the winner!");
-
-    }
-	
 }
