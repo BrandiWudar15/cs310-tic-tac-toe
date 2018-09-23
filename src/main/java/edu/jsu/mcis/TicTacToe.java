@@ -35,10 +35,7 @@ public class TicTacToe {
            win.add(view);
            win.pack();
            win.setVisible(true);
-           view.viewModel();
-        /* MAIN LOOP */
 
-        /* Game is over; show the final board and the winner */
 
        
 

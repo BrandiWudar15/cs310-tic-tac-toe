@@ -3,6 +3,7 @@ package edu.jsu.mcis;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.Scanner;
 
 public class TicTacToeView extends JPanel implements ActionListener {
     
@@ -43,8 +44,9 @@ public class TicTacToeView extends JPanel implements ActionListener {
         this.add(squaresPanel);
         this.add(resultLabel);
         
+        
         resultLabel.setText("Welcome to Tic-Tac-Toe!");
-
+        updateSquares();
     }
 
     @Override
@@ -56,14 +58,55 @@ public class TicTacToeView extends JPanel implements ActionListener {
            method to refresh the View.  If the game is over, show the result
            (from the Model's "getResult()" method) in the result label. */
         
-        String name = ((JButton) event.getSource()).getName(); // Get button name
+        String name = ((JButton) event.getSource()).getName(); // Get button name      
+        String array1[]= name.split("Square");
         
-        String nameRowCol = name.substring(6);
-        int rowInt = Integer.parseInt(nameRowCol.substring(0,(nameRowCol.length() / 2)-1));
-        int colInt = Integer.parseInt(nameRowCol.substring((nameRowCol.length() / 2)));
-
-        model.makeMark(rowInt, colInt);
+        
+            
+            if(array1[1].length() == 2)
+            {
+                String rowString = array1[1].substring(0,1);
+                String colString = array1[1].substring(1);
+                int rowInt = Integer.parseInt(String.valueOf(rowString));
+                int colInt = Integer.parseInt(String.valueOf(colString));
+                model.makeMark(rowInt, colInt);
+            }
+            else if(array1[1].length() == 3)
+            {
+                String rowString = array1[1].substring(0,2);
+                String colString = array1[1].substring(2);
+                int rowInt = Integer.parseInt(String.valueOf(rowString));
+                int colInt = Integer.parseInt(String.valueOf(colString));
+                
+                
+                if(model.isValidSquare(rowInt, colInt) == true)
+                {
+                    model.makeMark(rowInt, colInt);
+                }
+                else
+                {
+                    rowString = array1[1].substring(0,1);
+                    colString = array1[1].substring(1,3);
+                    rowInt = Integer.parseInt(String.valueOf(rowString));
+                    colInt = Integer.parseInt(String.valueOf(colString));
+                    model.makeMark(rowInt, colInt);
+                }
+            }
+            else
+            {
+                String rowString = array1[1].substring(0,2);
+                String colString = array1[1].substring(2,4);
+                int rowInt = Integer.parseInt(String.valueOf(rowString));
+                int colInt = Integer.parseInt(String.valueOf(colString));
+                model.makeMark(rowInt, colInt);
+            }
+        
         updateSquares();
+    
+        while(!model.isGameover())
+        {
+            showResult(model.getResult().toString());
+        }
     }
         
     public void updateSquares() {
@@ -78,16 +121,8 @@ public class TicTacToeView extends JPanel implements ActionListener {
                 }
             }
 
-        if(model.isGameover())
-        {
-            showResult(model.getResult().toString());
-        }
+        
 
-    }
-
-    public void viewModel()
-    {
-       squaresPanel.setVisible(true);
     }
         
     public void showResult(String message) 
