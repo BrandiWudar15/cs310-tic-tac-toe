@@ -78,7 +78,6 @@ public class TicTacToeView extends JPanel implements ActionListener {
                 int rowInt = Integer.parseInt(String.valueOf(rowString));
                 int colInt = Integer.parseInt(String.valueOf(colString));
                 
-                
                 if(model.isValidSquare(rowInt, colInt) == true)
                 {
                     model.makeMark(rowInt, colInt);
@@ -101,12 +100,11 @@ public class TicTacToeView extends JPanel implements ActionListener {
                 model.makeMark(rowInt, colInt);
             }
         
+            
+        
         updateSquares();
-    
-        while(!model.isGameover())
-        {
-            showResult(model.getResult().toString());
-        }
+        
+        
     }
         
     public void updateSquares() {
@@ -121,13 +119,24 @@ public class TicTacToeView extends JPanel implements ActionListener {
                 }
             }
 
+            if(model.isGameover())
+        {
+           
+            showResult(model.getResult().toString());
+            
+            
+        }
+
         
 
     }
         
     public void showResult(String message) 
     {
+        
         resultLabel.setText(message);
+        
+        
     }
 
 }
